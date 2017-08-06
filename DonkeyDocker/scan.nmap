@@ -1,0 +1,28 @@
+# Nmap 7.50 scan initiated Mon Aug  7 00:10:11 2017 as: nmap -sC -sT -A -o scan.nmap 192.168.254.105
+Nmap scan report for 192.168.254.105
+Host is up (0.0016s latency).
+Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.5 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 9c:38:ce:11:9c:b2:7a:48:58:c9:76:d5:b8:bd:bd:57 (RSA)
+|   256 d7:5e:f2:17:bd:18:1b:9c:8c:ab:11:09:e8:a0:00:c2 (ECDSA)
+|_  256 06:f0:0c:d8:bc:9b:21:95:a5:d2:70:39:08:57:b3:07 (EdDSA)
+80/tcp open  http    Apache httpd 2.4.10 ((Debian))
+| http-robots.txt: 3 disallowed entries 
+|_/contact.php /index.php /about.php
+|_http-server-header: Apache/2.4.10 (Debian)
+|_http-title: Docker Donkey
+MAC Address: E0:B9:A5:FD:7E:05 (AzureWave Technology)
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.2 - 4.8
+Network Distance: 1 hop
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   1.62 ms 192.168.254.105
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Mon Aug  7 00:10:20 2017 -- 1 IP address (1 host up) scanned in 9.47 seconds
